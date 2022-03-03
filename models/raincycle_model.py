@@ -65,10 +65,10 @@ class RainCycleModel(BaseModel):
         # netG2 for real rain generation
         # netG3 for real rain removal
         # netG4 for synthetic rain generation
-        self.netG2 = networks.define_G(opt.input_nc, opt.output_nc, opt.ngf, opt.netG, gpu_ids=self.gpu_ids)
-        self.netG4 = networks.define_G(opt.input_nc, opt.output_nc, opt.ngf, opt.netG, gpu_ids=self.gpu_ids)
-        self.netG1 = networks.define_G(opt.input_nc, opt.output_nc, opt.ngf, 'unet_128', gpu_ids=self.gpu_ids)
-        self.netG3 = networks.define_G(opt.input_nc, opt.output_nc, opt.ngf, 'unet_128', gpu_ids=self.gpu_ids)
+        self.netG2 = networks.define_G(opt.input_nc, opt.output_nc, opt.ngf, 'transgan', gpu_ids=self.gpu_ids)
+        self.netG4 = networks.define_G(opt.input_nc, opt.output_nc, opt.ngf, 'transgan', gpu_ids=self.gpu_ids)
+        self.netG1 = networks.define_G(opt.input_nc, opt.output_nc, opt.ngf, 'transgan', gpu_ids=self.gpu_ids)
+        self.netG3 = networks.define_G(opt.input_nc, opt.output_nc, opt.ngf, 'transgan', gpu_ids=self.gpu_ids)
 
 
         self.netD_Ot = networks.define_D(opt.output_nc, opt.ndf, opt.netD,opt.n_layers_D, opt.norm, opt.init_type, opt.init_gain, self.gpu_ids)
