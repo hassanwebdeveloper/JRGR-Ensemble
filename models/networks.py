@@ -1003,6 +1003,9 @@ class TransGANGenerator(nn.Module):
         self.depth1 = depth1
         self.depth2 = depth2
         self.depth3 = depth3
+        self.depth4 = depth4
+        self.depth5 = depth5
+        self.depth6 = depth6
         self.heads = heads
         self.mlp_ratio = mlp_ratio
         self.droprate_rate =drop_rate
