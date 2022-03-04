@@ -1010,7 +1010,7 @@ class TransGANGenerator(nn.Module):
         self.mlp_ratio = mlp_ratio
         self.droprate_rate =drop_rate
 
-        self.mlp = nn.Linear(1024, (self.initial_size ** 2) * self.dim)
+        self.mlp = nn.Linear(3*256*256, (self.initial_size ** 2) * self.dim)
 
         self.positional_embedding_1 = nn.Parameter(torch.zeros(1, (8**2), 384))
         self.positional_embedding_2 = nn.Parameter(torch.zeros(1, (8*2)**2, 384//4))
