@@ -124,7 +124,7 @@ class RainCycleModel(BaseModel):
             parameters_list.append(dict(params=self.netG2.parameters(), lr=opt.lr))
             parameters_list.append(dict(params=self.netG4.parameters(), lr=opt.lr))
             self.optimizer_G = torch.optim.Adam(parameters_list, lr=opt.lr, betas=(opt.beta1, 0.999))
-            self.optimizer_D_Os = torch.optim.Ad    am(self.netD_Os.parameters(), lr=opt.lr, betas=(opt.beta1, 0.999))
+            self.optimizer_D_Os = torch.optim.Adam(self.netD_Os.parameters(), lr=opt.lr, betas=(opt.beta1, 0.999))
             self.optimizer_D_Ot = torch.optim.Adam(self.netD_Ot.parameters(), lr=opt.lr, betas=(opt.beta1, 0.999))
             self.optimizer_B = torch.optim.Adam(self.netD_B.parameters(), lr=opt.lr, betas=(opt.beta1, 0.999))
 

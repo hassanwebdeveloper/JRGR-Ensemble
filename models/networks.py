@@ -1010,7 +1010,7 @@ class TransGANGenerator(nn.Module):
         self.mlp_ratio = mlp_ratio
         self.droprate_rate =drop_rate
 
-        self.mlp = nn.Linear(3*256*256, (self.initial_size ** 2) * self.dim)
+        self.mlp = nn.Linear(4096, (self.initial_size ** 2) * self.dim)
 
         self.positional_embedding_1 = nn.Parameter(torch.zeros(1, (8**2), 384))
         self.positional_embedding_2 = nn.Parameter(torch.zeros(1, (8*2)**2, 384//4))
@@ -1029,7 +1029,7 @@ class TransGANGenerator(nn.Module):
         self.linear = nn.Sequential(nn.Conv2d(self.dim//128, 3, 1, 1, 0))
 
     def forward(self, noise):
-        noise = rearrange(noise.unsqueeze(0).permute(0, 3, 2, 1), 'b h w c -> b (c h w)')
+        noise = noise..view(-1, 4096) #rearrange(noise.unsqueeze(0).permute(0, 3, 2, 1), 'b h w c -> b (c h w)')
         x = self.mlp(noise).view(-1, self.initial_size ** 2, self.dim)
         H, W = self.initial_size, self.initial_size
 
