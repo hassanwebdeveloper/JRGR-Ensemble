@@ -8,6 +8,8 @@ from typing import List, Dict
 import numpy as np
 # from diff_aug import DiffAugment
 from einops import rearrange, reduce, repeat
+from .Celeba256_gen import Generator
+
 
 
 ###############################################################################
@@ -161,7 +163,7 @@ def define_G(input_nc, output_nc, ngf, netG, norm='batch', use_dropout=False, in
     elif netG == 'unet_256':
         net = UnetGenerator(input_nc, output_nc, 8, ngf, norm_layer=norm_layer, use_dropout=use_dropout)
     elif netG == 'transgan':
-        net = TransGANGenerator()
+        net = Generator()
     else:
         raise NotImplementedError('Generator model name [%s] is not recognized' % netG)
     return init_net(net, init_type, init_gain, gpu_ids)
