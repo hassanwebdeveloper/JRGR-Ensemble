@@ -305,7 +305,7 @@ def window_reverse(windows, window_size, H, W):
     x = x.permute(0, 1, 3, 2, 4, 5).contiguous().view(B, H, W, -1)
     return x
 class Generator(nn.Module):
-    def __init__(self,bottom_width=8, g_window_size=16, gf_dim=1024,g_norm='pn',g_depth='5,4,4,4,4,4',latent_dim=512, img_size=224, patch_size=16, in_chans=3, num_classes=10, embed_dim=384, depth=5,
+    def __init__(self,bottom_width=8, g_window_size=16, gf_dim=1024,g_norm='pn',g_depth='5,4,4,4,4,4',latent_dim=768, img_size=224, patch_size=16, in_chans=3, num_classes=10, embed_dim=384, depth=5,
                  num_heads=4, mlp_ratio=4., qkv_bias=False, qk_scale=None, drop_rate=0., attn_drop_rate=0.,
                  drop_path_rate=0., hybrid_backbone=None, norm_layer=nn.LayerNorm):
         super(Generator, self).__init__()
@@ -449,8 +449,8 @@ class Generator(nn.Module):
             nn.Conv2d(self.embed_dim//64, 3, 1, 1, 0)
         )
         
-    def forward(self, z, epoch):
-        if self.latent_norm:
+    def forward(self, z):
+        if True:
             latent_size = z.size(-1)
             z = (z/z.norm(dim=-1, keepdim=True) * (latent_size ** 0.5))
         if self.l2_size == 0:
