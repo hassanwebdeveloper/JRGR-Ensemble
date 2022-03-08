@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import math
 import numpy as np
-from .ViT_helper import DropPath, to_2tuple, trunc_normal_
+from .ViT_helper import DropPath, trunc_normal_
 from .diff_aug import DiffAugment
 import torch.utils.checkpoint as checkpoint
 
@@ -318,7 +318,7 @@ class Generator(nn.Module):
         norm_layer = g_norm
         # mlp_ratio = args.g_mlp
         depth = [int(i) for i in g_depth.split(",")]
-        act_layer = gelu
+        act_layer = 'gelu'
         self.l2_size = 0
         
         if self.l2_size == 0:

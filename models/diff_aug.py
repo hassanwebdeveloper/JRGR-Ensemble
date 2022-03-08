@@ -4,14 +4,14 @@ import torch
 import torch.nn.functional as F
 import numpy as np
 import random
-from models_search.ada import *
+from .ada import *
 # from models_search import conv2d_gradfix
 import scipy.signal
-from torch_utils import persistence
-from torch_utils import misc
-from torch_utils.ops import upfirdn2d
-from torch_utils.ops import grid_sample_gradfix
-from torch_utils.ops import conv2d_gradfix
+from . import persistence
+from . import misc
+from . import upfirdn2d
+from . import grid_sample_gradfix
+from . import conv2d_gradfix
     
 wavelets = {
     'haar': [0.7071067811865476, 0.7071067811865476],
