@@ -51,6 +51,8 @@ class RainDataset(BaseDataset):
         # get the image paths of your dataset;
         # self.image_paths = []  # You can call sorted(make_dataset(self.root, opt.max_dataset_size)) to get all the image paths under the directory self.root
         BaseDataset.__init__(self, opt)
+        n_models = opt.n_models
+        modelnumber = opt.modelnumber
         self.Bt_access = opt.Bt_access
         self.data_root = opt.dataroot
         self.O_t_path = os.path.join(self.data_root,opt.phase,'Ot')
@@ -58,13 +60,30 @@ class RainDataset(BaseDataset):
         self.B_s_path = os.path.join(self.data_root,opt.phase,'Bs')
         if self.Bt_access:
             self.B_t_path = os.path.join(self.data_root,opt.phase,'Bt')
+
             self.B_t_name_list = os.listdir(self.B_t_path)
-        self.O_t_name_list = os.listdir(self.O_t_path)
-        self.O_s_name_list = os.listdir(self.O_s_path)
-        random.shuffle(self.O_t_name_list)
-        random.shuffle(self.O_s_name_list)
-        if self.Bt_access:
             random.shuffle(self.B_t_name_list)
+            start_index = (modelnumber - 1) * (len(self.B_t_name_list) / n_models)
+            self.B_t_name_list = self.B_t_name_list[int(start_index): int(start_index + (len(self.B_t_name_list) / n_models))]
+
+
+        self.O_t_name_list = os.listdir(self.O_t_path)
+        random.shuffle(self.O_t_name_list)
+        start_index = (modelnumber - 1) * (len(self.O_t_name_list) / n_models)
+        self.O_t_name_list = self.O_t_name_list[int(start_index): int(start_index + (len(self.O_t_name_list) / n_models))]
+
+        self.O_s_name_list = os.listdir(self.O_s_path)
+        random.shuffle(self.O_s_name_list)
+        start_index = (modelnumber - 1) * (len(self.O_s_name_list) / n_models)
+        self.O_s_name_list = self.O_s_name_list[int(start_index): int(start_index + (len(self.O_s_name_list) / n_models))]
+
+        # self.O_s_name_list = os.listdir(self.O_s_path)
+
+
+        # random.shuffle(self.O_t_name_list)
+        # random.shuffle(self.O_s_name_list)
+        # if self.Bt_access:
+        #     random.shuffle(self.B_t_name_list)
 
         # define the default transform function. You can use <base_dataset.get_transform>; You can also define your custom transform function
         self.transform = transforms.Compose([
