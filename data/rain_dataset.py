@@ -61,7 +61,7 @@ class RainDataset(BaseDataset):
         self.B_s_path = os.path.join(self.data_root,opt.phase,'Bs')
         if self.Bt_access:
             try:
-              with open('/content/JRGR/drive/MyDrive/Thesis/JRGR/B_t_name_list.json', 'r') as filehandle:
+              with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/B_t_name_list.json', 'r') as filehandle:
                 self.B_t_name_list = json.load(filehandle)
             except:
               self.B_t_name_list = None  
@@ -74,12 +74,12 @@ class RainDataset(BaseDataset):
               start_index = (modelnumber - 1) * (len(self.B_t_name_list) / n_models)
               self.B_t_name_list = self.B_t_name_list[int(start_index): int(start_index + (len(self.B_t_name_list) / n_models))]
 
-              with open('/content/JRGR/drive/MyDrive/Thesis/JRGR/B_t_name_list.json', 'w') as filehandle:
+              with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/B_t_name_list.json', 'w') as filehandle:
                 json.dump(self.B_t_name_list, filehandle)
             else:
               print("self.B_t_name_list found")
         try:
-          with open('/content/JRGR/drive/MyDrive/Thesis/JRGR/O_t_name_list.json', 'r') as filehandle:
+          with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/O_t_name_list.json', 'r') as filehandle:
             self.O_t_name_list = json.load(filehandle)
         except:
           self.O_t_name_list = None
@@ -90,13 +90,13 @@ class RainDataset(BaseDataset):
           start_index = (modelnumber - 1) * (len(self.O_t_name_list) / n_models)
           self.O_t_name_list = self.O_t_name_list[int(start_index): int(start_index + (len(self.O_t_name_list) / n_models))]
           
-          with open('/content/JRGR/drive/MyDrive/Thesis/JRGR/O_t_name_list.json', 'w') as filehandle:
+          with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/O_t_name_list.json', 'w') as filehandle:
             json.dump(self.O_t_name_list, filehandle)
         else:
               print("self.O_t_name_list found")
 
         try:
-          with open('/content/JRGR/drive/MyDrive/Thesis/JRGR/O_s_name_list.json', 'r') as filehandle:
+          with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/O_s_name_list.json', 'r') as filehandle:
             self.O_s_name_list = json.load(filehandle)
         except:
           self.O_s_name_list = None
@@ -107,7 +107,7 @@ class RainDataset(BaseDataset):
           start_index = (modelnumber - 1) * (len(self.O_s_name_list) / n_models)
           self.O_s_name_list = self.O_s_name_list[int(start_index): int(start_index + (len(self.O_s_name_list) / n_models))]
           
-          with open('/content/JRGR/drive/MyDrive/Thesis/JRGR/O_s_name_list.json', 'w') as filehandle:
+          with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/O_s_name_list.json', 'w') as filehandle:
             json.dump(self.O_s_name_list, filehandle)
         else:
               print("self.O_s_name_list found")
