@@ -18,6 +18,7 @@ import os
 import torchvision.transforms as transforms
 import random
 import cv2
+import json
 
 windows = 1
 ubuntu = 0
@@ -59,24 +60,57 @@ class RainDataset(BaseDataset):
         self.O_s_path = os.path.join(self.data_root,opt.phase,'Os')
         self.B_s_path = os.path.join(self.data_root,opt.phase,'Bs')
         if self.Bt_access:
-            self.B_t_path = os.path.join(self.data_root,opt.phase,'Bt')
+            try:
+              with open('/content/JRGR/drive/MyDrive/Thesis/JRGR/B_t_name_list.json', 'r') as filehandle:
+                self.B_t_name_list = json.load(filehandle)
+            except:
+              self.B_t_name_list = None  
+            
+            if self.B_t_name_list is None:
+              self.B_t_path = os.path.join(self.data_root,opt.phase,'Bt')
 
-            self.B_t_name_list = os.listdir(self.B_t_path)
-            random.shuffle(self.B_t_name_list)
-            start_index = (modelnumber - 1) * (len(self.B_t_name_list) / n_models)
-            self.B_t_name_list = self.B_t_name_list[int(start_index): int(start_index + (len(self.B_t_name_list) / n_models))]
+              self.B_t_name_list = os.listdir(self.B_t_path)
+              random.shuffle(self.B_t_name_list)
+              start_index = (modelnumber - 1) * (len(self.B_t_name_list) / n_models)
+              self.B_t_name_list = self.B_t_name_list[int(start_index): int(start_index + (len(self.B_t_name_list) / n_models))]
 
+              with open('/content/JRGR/drive/MyDrive/Thesis/JRGR/B_t_name_list.json', 'w') as filehandle:
+                json.dump(self.B_t_name_list, filehandle)
+            else:
+              print("self.B_t_name_list found")
+        try:
+          with open('/content/JRGR/drive/MyDrive/Thesis/JRGR/O_t_name_list.json', 'r') as filehandle:
+            self.O_t_name_list = json.load(filehandle)
+        except:
+          self.O_t_name_list = None
 
-        self.O_t_name_list = os.listdir(self.O_t_path)
-        random.shuffle(self.O_t_name_list)
-        start_index = (modelnumber - 1) * (len(self.O_t_name_list) / n_models)
-        self.O_t_name_list = self.O_t_name_list[int(start_index): int(start_index + (len(self.O_t_name_list) / n_models))]
+        if self.O_t_name_list is None:
+          self.O_t_name_list = os.listdir(self.O_t_path)
+          random.shuffle(self.O_t_name_list)
+          start_index = (modelnumber - 1) * (len(self.O_t_name_list) / n_models)
+          self.O_t_name_list = self.O_t_name_list[int(start_index): int(start_index + (len(self.O_t_name_list) / n_models))]
+          
+          with open('/content/JRGR/drive/MyDrive/Thesis/JRGR/O_t_name_list.json', 'w') as filehandle:
+            json.dump(self.O_t_name_list, filehandle)
+        else:
+              print("self.O_t_name_list found")
 
-        self.O_s_name_list = os.listdir(self.O_s_path)
-        random.shuffle(self.O_s_name_list)
-        start_index = (modelnumber - 1) * (len(self.O_s_name_list) / n_models)
-        self.O_s_name_list = self.O_s_name_list[int(start_index): int(start_index + (len(self.O_s_name_list) / n_models))]
+        try:
+          with open('/content/JRGR/drive/MyDrive/Thesis/JRGR/O_s_name_list.json', 'r') as filehandle:
+            self.O_s_name_list = json.load(filehandle)
+        except:
+          self.O_s_name_list = None
 
+        if self.O_s_name_list is None:
+          self.O_s_name_list = os.listdir(self.O_s_path)
+          random.shuffle(self.O_s_name_list)
+          start_index = (modelnumber - 1) * (len(self.O_s_name_list) / n_models)
+          self.O_s_name_list = self.O_s_name_list[int(start_index): int(start_index + (len(self.O_s_name_list) / n_models))]
+          
+          with open('/content/JRGR/drive/MyDrive/Thesis/JRGR/O_s_name_list.json', 'w') as filehandle:
+            json.dump(self.O_s_name_list, filehandle)
+        else:
+              print("self.O_s_name_list found")
         # self.O_s_name_list = os.listdir(self.O_s_path)
 
 
