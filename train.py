@@ -24,7 +24,7 @@ from util.visualizer import Visualizer
 if __name__ == '__main__':
     opt = TrainOptions().parse()   # get training options
     n_models = opt.n_models
-    for i in range(1, n_models + 1, 1):
+    for i in range(n_models, n_models + 1, 1):
         opt.modelnumber = i
         dataset = create_dataset(opt)  # create a dataset given opt.dataset_mode and other options
         dataset_size = len(dataset)    # get the number of images in the dataset.
