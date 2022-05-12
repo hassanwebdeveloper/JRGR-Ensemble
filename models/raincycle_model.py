@@ -52,7 +52,7 @@ class RainCycleModel(BaseModel):
                                  'pred_Rs', 'pred_Rst', 'pred_pred_Rt', 'pred_pred_Rts',
                                  'pred_Rt', 'pred_Rts', 'pred_pred_Rs', 'pred_pred_Rst']
         else:
-            self.visual_names = ['Os', 'Ot', 'Bs', 'Rs',
+            self.visual_names = ['Os', 'Ot', 'Bs', 'Bt', 'Rs',
                                  'pred_Bs', 'pred_Ot', 'pred_pred_Bs', 'pred_pred_Os',
                                  'pred_Bt', 'pred_Os', 'pred_pred_Bt', 'pred_pred_Ot',
                                  'pred_Rs', 'pred_Rst', 'pred_pred_Rt', 'pred_pred_Rts',
