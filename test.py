@@ -23,11 +23,12 @@ Example (You need to train models first or download pre-trained models from our 
         python test.py --dataroot ./dataset --dataset_mode rain --model raincycle --name JRGR
 """
 import os
+import torch
 from options.test_options import TestOptions
 from data import create_dataset
 from models import create_model
 from util.visualizer import save_images
-from util import html, tensor2im
+from util import html
 
 
 if __name__ == '__main__':
@@ -55,9 +56,11 @@ if __name__ == '__main__':
     for i, data in enumerate(dataset):
         lst_imobj = {}
         for j in range(1, n_models + 1, 1):
+            print("model #:", j)
             opt.modelnumber = j
             model = create_model(opt)      # create a model given opt.model and other options
             model.setup(opt)               # regular setup: load and print networks; create schedulers
+            print("model Created")
             if opt.eval:
                 model.eval()
             if i >= opt.num_test:  # only apply our model to opt.num_test images.
@@ -65,7 +68,7 @@ if __name__ == '__main__':
             model.set_input(data)  # unpack data from data loader
             model.test()           # run inference
             visuals = model.get_current_visuals()  # get image results
-            
+            print("model Visuals created")
             for label, im_data in visuals.items():
                 if label in lst_imobj:
                     arr_imgs = lst_imobj[label]
@@ -75,10 +78,12 @@ if __name__ == '__main__':
                     arr_imgs.append(im_data)
                 
                 lst_imobj[label] = arr_imgs
-        
+            print("model Visuals collected")
+
         for lable in lst_imobj:
             arr_imdata = lst_imobj[label]
-            mean = torch.mean(torch.stack(arr_imdata))
+            mean = torch.mean(torch.stack(arr_imdata), dim=0)
+            print("Mean Calculated")
             visuals[label] = mean
             
         img_path = model.get_image_paths()     # get image paths        
