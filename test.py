@@ -51,11 +51,9 @@ if __name__ == '__main__':
     # For [pix2pix]: we use batchnorm and dropout in the original pix2pix. You can experiment it with and without eval() mode.
     # For [CycleGAN]: It should not affect CycleGAN as CycleGAN uses instancenorm without dropout.            
     lst_models = []
-    
     n_models = opt.n_models
-    for i, data in enumerate(dataset):
-        lst_imobj = {}
-        for j in range(1, n_models + 1, 1):
+    
+    for j in range(1, n_models + 1, 1):
             print("model #:", j)
             opt.modelnumber = j
             model = create_model(opt)      # create a model given opt.model and other options
@@ -63,6 +61,14 @@ if __name__ == '__main__':
             print("model Created")
             if opt.eval:
                 model.eval()
+            
+            lst_models.append(model)
+    
+    
+    for i, data in enumerate(dataset):
+        lst_imobj = {}
+        for rr_model in lst_models:
+            model = rr_model                # create a model given opt.model and other options
             if i >= opt.num_test:  # only apply our model to opt.num_test images.
                 break
             model.set_input(data)  # unpack data from data loader
