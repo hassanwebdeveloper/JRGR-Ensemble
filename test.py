@@ -52,17 +52,21 @@ if __name__ == '__main__':
     # For [CycleGAN]: It should not affect CycleGAN as CycleGAN uses instancenorm without dropout.            
     lst_models = []
     n_models = opt.n_models
+    model_epochs = opt.model_epochs
+    arr_epochs = model_epochs.split(',')
     
-    for j in range(1, n_models + 1, 1):
-            print("model #:", j)
-            opt.modelnumber = j
-            model = create_model(opt)      # create a model given opt.model and other options
-            model.setup(opt)               # regular setup: load and print networks; create schedulers
-            print("model Created")
-            if opt.eval:
-                model.eval()
-            
-            lst_models.append(model)
+    for ep in arr_arr_epochs:
+        opt.epoch = ep
+        for j in range(1, n_models + 1, 1):
+                print("model #:", j)
+                opt.modelnumber = j
+                model = create_model(opt)      # create a model given opt.model and other options
+                model.setup(opt)               # regular setup: load and print networks; create schedulers
+                print("model Created")
+                if opt.eval:
+                    model.eval()
+
+                lst_models.append(model)
     
     
     for i, data in enumerate(dataset):
@@ -87,10 +91,11 @@ if __name__ == '__main__':
             print("model Visuals collected")
 
         for lable in lst_imobj:
-            arr_imdata = lst_imobj[label]
-            mean = torch.mean(torch.stack(arr_imdata), dim=0)
-            print("Mean Calculated")
-            visuals[label] = mean
+            if lable == "pred_Bt":
+                arr_imdata = lst_imobj[lable]
+                mean = torch.mean(torch.stack(arr_imdata), dim=0)
+                print("Mean Calculated")
+                visuals[lable] = mean
             
         img_path = model.get_image_paths()     # get image paths        
         if i % 2 == 0:  # save images to an HTML file
