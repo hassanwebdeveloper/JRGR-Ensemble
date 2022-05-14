@@ -20,6 +20,6 @@ class TestOptions(BaseOptions):
         # To avoid cropping, the load_size should be the same as crop_size
         parser.set_defaults(load_size=parser.get_default('crop_size'))
         parser.add_argument('--n_models', type=int, default=5, help='the size of image buffer that stores previously generated images')
-        parser.add_argument('--model_epochs', type=string, default="50,100,200", help='the size of image buffer that stores previously generated images')
+        parser.add_argument('--model_epochs', type=str, default="50,100,200", help='the size of image buffer that stores previously generated images')
         self.isTrain = False
         return parser
