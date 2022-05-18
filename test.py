@@ -55,7 +55,7 @@ if __name__ == '__main__':
     model_epochs = opt.model_epochs
     arr_epochs = model_epochs.split(',')
     
-    for ep in arr_arr_epochs:
+    for ep in arr_epochs:
         opt.epoch = ep
         for j in range(1, n_models + 1, 1):
                 print("model #:", j)
