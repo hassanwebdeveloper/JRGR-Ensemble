@@ -38,6 +38,7 @@ class TrainOptions(BaseOptions):
         parser.add_argument('--lr_policy', type=str, default='linear', help='learning rate policy. [linear | step | plateau | cosine]')
         parser.add_argument('--lr_decay_iters', type=int, default=50, help='multiply by a gamma every lr_decay_iters iterations')
         parser.add_argument('--n_models', type=int, default=5, help='the size of image buffer that stores previously generated images')
+        parser.add_argument('--startmodel', type=int, default=1, help='the size of image buffer that stores previously generated images')
 
         self.isTrain = True
         return parser
