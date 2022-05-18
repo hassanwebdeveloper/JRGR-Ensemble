@@ -55,15 +55,16 @@ class RainDataset(BaseDataset):
 
         if opt.isTrain:
           n_models = opt.n_models
-          modelnumber = opt.modelnumber
+          modelnumber = str(opt.modelnumber)
           self.Bt_access = opt.Bt_access
           self.data_root = opt.dataroot
           self.O_t_path = os.path.join(self.data_root,opt.phase,'Ot')
           self.O_s_path = os.path.join(self.data_root,opt.phase,'Os')
           self.B_s_path = os.path.join(self.data_root,opt.phase,'Bs')
+          portion = random.randint(1,5)
           if self.Bt_access:
               try:
-                with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/B_t_name_list.json', 'r') as filehandle:
+                with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/B_t_name_list' + modelnumber + '.json', 'r') as filehandle:
                   self.B_t_name_list = json.load(filehandle)
               except:
                 self.B_t_name_list = None  
@@ -73,15 +74,15 @@ class RainDataset(BaseDataset):
 
                 self.B_t_name_list = os.listdir(self.B_t_path)
                 random.shuffle(self.B_t_name_list)
-                start_index = (modelnumber - 1) * (len(self.B_t_name_list) / n_models)
-                self.B_t_name_list = self.B_t_name_list[int(start_index): int(start_index + (len(self.B_t_name_list) / n_models))]
+                start_index = (portion - 1) * (400)
+                self.B_t_name_list = self.B_t_name_list[int(start_index): int(start_index + (400))]
 
-                with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/B_t_name_list.json', 'w') as filehandle:
+                with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/B_t_name_list' + modelnumber + '.json', 'w') as filehandle:
                   json.dump(self.B_t_name_list, filehandle)
               else:
                 print("self.B_t_name_list found")
           try:
-            with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/O_t_name_list.json', 'r') as filehandle:
+            with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/O_t_name_list' + modelnumber + '.json', 'r') as filehandle:
               self.O_t_name_list = json.load(filehandle)
           except:
             self.O_t_name_list = None
@@ -89,16 +90,16 @@ class RainDataset(BaseDataset):
           if self.O_t_name_list is None:
             self.O_t_name_list = os.listdir(self.O_t_path)
             random.shuffle(self.O_t_name_list)
-            start_index = (modelnumber - 1) * (len(self.O_t_name_list) / n_models)
-            self.O_t_name_list = self.O_t_name_list[int(start_index): int(start_index + (len(self.O_t_name_list) / n_models))]
+            start_index = (portion - 1) * (400)
+            self.O_t_name_list = self.O_t_name_list[int(start_index): int(start_index + (400))]
             
-            with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/O_t_name_list.json', 'w') as filehandle:
+            with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/O_t_name_list' + modelnumber + '.json', 'w') as filehandle:
               json.dump(self.O_t_name_list, filehandle)
           else:
                 print("self.O_t_name_list found")
 
           try:
-            with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/O_s_name_list.json', 'r') as filehandle:
+            with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/O_s_name_list' + modelnumber + '.json', 'r') as filehandle:
               self.O_s_name_list = json.load(filehandle)
           except:
             self.O_s_name_list = None
@@ -106,10 +107,10 @@ class RainDataset(BaseDataset):
           if self.O_s_name_list is None:
             self.O_s_name_list = os.listdir(self.O_s_path)
             random.shuffle(self.O_s_name_list)
-            start_index = (modelnumber - 1) * (len(self.O_s_name_list) / n_models)
-            self.O_s_name_list = self.O_s_name_list[int(start_index): int(start_index + (len(self.O_s_name_list) / n_models))]
+            start_index = (portion - 1) * (400)
+            self.O_s_name_list = self.O_s_name_list[int(start_index): int(start_index + (400))]
             
-            with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/O_s_name_list.json', 'w') as filehandle:
+            with open('/content/JRGR/drive/MyDrive/Thesis1/JRGR/O_s_name_list' + modelnumber + '.json', 'w') as filehandle:
               json.dump(self.O_s_name_list, filehandle)
           else:
                 print("self.O_s_name_list found")
