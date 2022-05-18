@@ -24,7 +24,8 @@ from util.visualizer import Visualizer
 if __name__ == '__main__':
     opt = TrainOptions().parse()   # get training options
     n_models = opt.n_models
-    for i in range(n_models, n_models + 1, 1):
+    start_model = opt.startmodel
+    for i in range(start_model, start_model + n_models + 1, 1):
         opt.modelnumber = i
         dataset = create_dataset(opt)  # create a dataset given opt.dataset_mode and other options
         dataset_size = len(dataset)    # get the number of images in the dataset.
@@ -72,6 +73,6 @@ if __name__ == '__main__':
             if epoch % opt.save_epoch_freq == 0:              # cache our model every <save_epoch_freq> epochs
                 print('saving the model at the end of epoch %d, iters %d' % (epoch, total_iters))
                 model.save_networks(epoch)
-            model.save_networks('latest - ' + str(opt.modelnumber))
+            model.save_networks('latest')
 
             print('End of epoch %d / %d \t Time Taken: %d sec' % (epoch, opt.n_epochs + opt.n_epochs_decay, time.time() - epoch_start_time))
