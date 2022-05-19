@@ -4,6 +4,8 @@ import torch
 import numpy as np
 from PIL import Image
 import os
+from skimage import data, img_as_float
+from skimage.metrics import structural_similarity as ssim
 
 
 def tensor2im(input_image, imtype=np.uint8):
@@ -96,6 +98,17 @@ def mkdirs(paths):
         mkdir(paths)
 
 
+def calculate_ssim(img, pred_img):
+    img_float = img_as_float(img)
+    img_pred_float = img_as_float(pred_img)
+
+    ssim_value = ssim(np.moveaxis(img_float, 0, 2), np.moveaxis(img_pred_float, 0, 2),  multichannel=True)
+    return ssim_value
+
+def calculate_PSNR(img1, img2):
+    mse = torch.mean((img1 - img2) ** 2)
+    return 20 * torch.log10(255.0 / torch.sqrt(mse))
+    
 def mkdir(path):
     """create a single empty directory if it didn't exist
 
